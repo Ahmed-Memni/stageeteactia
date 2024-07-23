@@ -1,0 +1,5 @@
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+ttyACM0::askfirst:/bin/sh
+::shutdown:/bin/umount -a
+

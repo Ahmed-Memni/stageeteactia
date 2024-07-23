@@ -1,0 +1,22 @@
+#!/bin/sh
+# /etc/init.d/rcS
+
+echo "Starting system initialization..."
+
+# Mount the proc filesystem
+if ! mountpoint -q /proc; then
+    mount -t proc proc /proc
+fi
+
+# Mount the sys filesystem
+if ! mountpoint -q /sys; then
+    mount -t sysfs sysfs /sys
+fi
+
+echo "System initialization complete."
+
+# Optionally, you can add other initialization tasks here
+
+# Start the login shell
+exec /bin/sh
+
