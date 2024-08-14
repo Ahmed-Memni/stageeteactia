@@ -28,6 +28,9 @@ docker network create -d macvlan \
       addresses:
         - 192.168.0.1/24
 
+ sudo nano /etc/netplan/01-netcfg.yaml
+       
+
 
 sudo netplan apply
 srv/tftp zimage / tftp 0xc2000000 zImage
