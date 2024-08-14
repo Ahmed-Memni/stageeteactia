@@ -1,0 +1,20 @@
+# Use an Ubuntu base image
+FROM ubuntu:24.04
+
+# Install necessary packages, including ufw
+RUN apt-get update && \
+    apt-get install -y nfs-kernel-server nfs-common rpcbind ufw && \
+    apt-get clean
+
+# Create the export directory and set permissions
+RUN mkdir -p /nfs && \
+    chown nobody:nogroup /nfs
+
+# Configure NFS exports
+RUN echo "/nfs *(rw,sync,no_subtree_check)" > /etc/exports
+
+# Expose NFS port
+EXPOSE 2049
+
+# Start services and disable UFW
+CMD ["bash", "-c", "ufw disable && mkdir -p /run/rpcbind && rpcbind && rpc.statd && rpc.mountd && rpc.nfsd 8 && exportfs -rav && tail -f /dev/null"]
